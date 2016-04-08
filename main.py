@@ -141,7 +141,7 @@ Takes in a number indicating the size of the graph in square hectopixels (must b
 """
 visualize2()
           
-"""
+
 
 
 
@@ -286,7 +286,7 @@ def optimize1(s1,s2,e1,e2,restricted=[],depth=0,path=[],printe=True,d={}):
           return c
 print optimize1(1,2,63,64)
 print "Number of steps:",aval+1,":",value/walkingspeed 
-data=""""""1	River Street
+data="""1	River Street
 2	Passes By Pi Kappa Phi
 3	3rd Street
 4	Broadway
@@ -385,11 +385,11 @@ data=""""""1	River Street
 97	Route to Shirley|s House
 98	Path by Colonie and Bryckwyck
 99	Sunset Terrace
-100	Hoosick Street""""""
+100	Hoosick Street"""
 
 s=data.replace("\t",":'").replace("\n","',")
 print s
 t = "{"+s+"'}"
 print t
 
-print "Key",eval(t)"""
+print "Key",eval(t)

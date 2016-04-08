@@ -4,6 +4,16 @@
 
 This is a currently ongoing project involving a customized GoogleMaps-like GPS system for the RPI campus. This is currently accessible as a Python file that inputs a few initial values and generates a list of successively improving paths between the two points.
 
+# CONTRIBUTORS
+
+Owen Goff (goffo@rpi.edu). If anyone lese is interested in helping, shoot me an email!
+
+# DESCRIPTION
+
+The algorithm used is a version of Dijkstra's algorithm, applied on an adjustable list of coordinates. Every coordinate is the intersection of two paths, expressed as a two-element tuple of integers. An expanded version will likely generalize this to either 3- or 4-element tuples, or to a dictionary.
+
+To use the 
+
 # VERSIONS
 
 Version 1.0
