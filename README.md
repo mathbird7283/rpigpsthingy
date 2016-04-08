@@ -6,7 +6,7 @@ This is a currently ongoing project involving a customized GoogleMaps-like GPS s
 
 # CONTRIBUTORS
 
-Owen Goff (goffo@rpi.edu), with some assistance from Avi Weinstock 
+Owen Goff (goffo@rpi.edu), with some assistance from Avi Weinstock.
 If anyone else is interested in helping, shoot me an email!
 
 # DESCRIPTION
@@ -26,6 +26,7 @@ Improved start and end customization.
 # Version 1.0.0
 
 This currently has:
+
 1) an improved algorithm that allows the analysis of the paths between a point in downtown Troy and a point on Freshman Hill in under one minute. This, however, I would like to improve further with Dijkstra's Algorithm.
 
 2) A graphical representation for the campus, written using a Python graphics module developed by Wartburg College in Iowa.
