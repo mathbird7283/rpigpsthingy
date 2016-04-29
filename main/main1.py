@@ -1,6 +1,21 @@
-database=[(1,2),(1,3),(1,5),(2,46),(3,4),(4,5),(5,6),(5,10),(5,46),(6,7),(6,8),(7,8),(7,9),(8,9),(9,10),(9,46),(10,14),(10,27),(10,31),(10,41),(10,50),(10,76),(11,17),(11,28),(11,30),(12,27),(12,31),(13,14),(13,16),(14,16),(14,21),(14,27),(14,37),(14,39),(14,41),(14,48),(14,50),(14,51),(17,18),(16,17),(18,30),(19,20),(19,22),(19,28),(19,38),(20,24),(21,22),(21,26),(21,28),(21,38),(21,40),(22,33),(22,35),(22,37),(22,39),(23,32),(23,30),(24,39),(24,51),(25,26),(25,40),(25,28),(25,38),(26,35),(28,29),(28,30),(28,34),(29,30),(29,38),(29,40),(30,34),(33,35),(33,38),(33,40),(34,37),(34,39),(35,36),(35,40),(36,37),(36,39),(36,45),(36,47),(36,48),(37,39),(37,40),(37,44),(38,43),(38,44),(38,49),(38,54),(38,55),(39,40),(39,42),(39,44),(42,51),(43,45),(45,47),(45,48),(46,51),(46,57),(47,48),(47,49),(48,49),(48,51),(50,51),(50,60),(50,61),(52,61),(51,70),(53,56),(54,55),(54,61),(56,61),(56,66),(57,85),(57,59),(60,61),(60,65),(60,71),(61,62),(61,63),(61,64),(63,64),(63,66),(63,68),(64,67),(64,71),(65,71),(65,76),(66,67),(66,69),(67,68),(69,71),(70,71),(70,89),(71,72),(71,74),(71,76),(71,78),(71,100),(72,73),(72,74),(73,74),(73,75),(73,80),(74,79),(74,80),(75,76),(76,77),(76,81),(76,83),(76,85),(76,87),(76,89),(76,99),(77,82),(79,90),(80,83),(81,82),(81,84),(81,88),(82,83),(82,85),(83,84),(83,88),(83,94),(83,98),(83,100),(86,87),(87,92),(88,91),(88,93),(89,99),(90,99),(91,94),(91,98),(94,95),(95,96),(96,99),(97,98),(98,99)]
+# Python RPI GPS Main Code
+# Requires a test file input 
+filename=raw_input("Type the name of the test file you would like to use here ==> ")
 
-# buildings={[(97,d):[2418.a]
+f=open(filename,"r")
+debug=eval(f.readline().capitalize())
+walkingspeed=int(f.readline())
+(u,v)=eval("("+f.readline().replace("\n",")"))
+(w,x)=eval("("+f.readline().replace("\n",")"))
+
+def tsort((a,b)):
+     if (a<b):
+          return (a,b)
+     else:
+          return (b,a)
+     
+database=eval(f.readline()[9:])
+#this is a set of numbers that5 represents RPI. For instance (29,38) is the circle next to 
 
 def system1(database):
      databasedict={}
@@ -11,13 +26,10 @@ def system1(database):
           
           for j in database:
                if len(set.union(set(i),set(j)))<i+j:
-                    databasedict[i].append(j)
-                    databasedict[j].append(i)
+                    databasedict[tsort(i)].append(tsort(j))
+                    databasedict[tsort(j)].append(tsort(i))
      return databasedict
 
-def system2(database):
-     pass
-     
           
 
 def visualize1(n=8):
@@ -170,27 +182,26 @@ print len(database)
 ## NEW IDEA: Create a dictionary called "edges" that contains all possible edges betwene 2 points. Whne you look at an edge and have not reached the desired vertex, remove it. 
 
 import sys
-sys.setrecursionlimit(440)
+sys.setrecursionlimit(140)
 n=1
 #database=[(1,2),(1,3),(1,4),(4,5),(5,6),(6,7),(7,8),(7,9),(8,9)]
 
-debug=eval(str.capitalize(raw_input("Debug run? If you do many print statements will appear. Enter true or false ==> ")))
+#debug=eval(str.capitalize(raw_input("Debug run? If you do many print statements will appear. Enter true or false ==> ")))
 
-pps=raw_input("Enter steps per second (default is 2) ==> ")
+# pps=raw_input("Enter steps per second (default is 2) ==> ")
 
-if type(eval(pps))==int:
-     pps=int(pps)
-else:
-     pps=2
+#     pps=int(pps)
+#else:
+ #    pps=2
 
 
 def dprint(x):
      if debug: print x
 
 
-walkingspeed=3.5 # mph
+#walkingspeed=3.5 # mph
 
-walkingspeed*=(5280/3600.) # converts miles per hour to feet per second
+#walkingspeed*=(5280/3600.) # converts miles per hour to feet per second
 
 steplength=3 # feet
 
@@ -213,15 +224,10 @@ value=0
 def distance((s1,s2),(e1,e2)):
      return float(abs(s1-e1)/2.+abs(s2-e2)/2.)
 
-def tsort((a,b)):
-     if (a<b):
-          return (a,b)
-     else:
-          return (b,a)
+
      
 
 ashley=[]
-s5=system1(database)
 
 def optimize1(s1,s2,e1,e2,restricted=[],depth=0,path=[],printe=True,d={}):
      if ((s1,s2) not in database and (s2,s1) not in database) or ((e1,e2) not in database and (e2,e1) not in database):
@@ -244,13 +250,10 @@ def optimize1(s1,s2,e1,e2,restricted=[],depth=0,path=[],printe=True,d={}):
                return depth; # this is clearly incorrect, but it doesn't really matter.
           #what is printed matters.
           news=[]
-          
-          for (a,b) in s5[tsort((s1,s2))]:
-               if ((a,b) not in restricted and (b,a) not in restricted and set((a,b))!=set((s1,s2))):
+          s5=system1(database)
+          for (a,b) in s5[(tsort((s1,s2)))]:
+               if (a,b) not in restricted and (b,a) not in restricted and set((a,b))!=set((s1,s2)):
                     news.append((a,b))# where you can go...
-                    
-                    
-                    
           minval=999999
           c=999999
           dprint(news)
@@ -261,7 +264,7 @@ def optimize1(s1,s2,e1,e2,restricted=[],depth=0,path=[],printe=True,d={}):
                #d1=distance(item[0],item[1],s1,s2)
                # print item, path
                # print "Running from vertex:",item[1],",",item[0]
-               if ((not d.has_key((item[0],item[1])) and not d.has_key((item[1],item[0]))) or (d.has_key((item[0],item[1])) and d[(item[0],item[1])]>depth) or (d.has_key((item[1],item[0])) and d[(item[1],item[0])]>depth)): # tests if this is the best (currently) path
+               if (s5.get((item[0],item[1]),depth+1)>depth or s5.get((item[0],item[1]),depth+1)>depth ): # tests if this is the best (currently) path
                     d[tsort((item[0],item[1]))]=depth+d1
                     # print "optimizing route from (",item[1],",",item[0],"): %d: %d"%(depth,1)
                     newpath=path+[(s1,s2)]
@@ -306,10 +309,8 @@ def optimize1(s1,s2,e1,e2,restricted=[],depth=0,path=[],printe=True,d={}):
                dprint(len(path))
          
           return c
-xlist=raw_input("Starting points (enter 2 integers, separated by a comma) ==> ")
-(u,v)=eval(xlist)
-ylist=raw_input("Ending points (enter 2 integers, separated by a comma) ==> ")
-(w,x)=eval(ylist)
+
+
 print optimize1(int(str(u).replace(" ","")),int(str(v).replace(" ","")),int(str(w).replace(" ","")),int(str(x).replace(" ","")))
 print "Number of steps:",aval+1,":",value/walkingspeed 
 data="""1	River Street
