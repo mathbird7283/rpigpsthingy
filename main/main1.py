@@ -2,7 +2,7 @@
 # Requires a test file input 
 filename=raw_input("Type the name of the test file you would like to use here ==> ")
 
-f=open(filename,"r")
+f=open('C:\\Users\\goffo\\Code\\rpigpsthingy\\tests\\'+filename,"r") # thanks to electrometro for giving me this answer.
 debug=eval(f.readline().capitalize())
 walkingspeed=int(f.readline())
 (u,v)=eval("("+f.readline().replace("\n",")"))
@@ -25,7 +25,7 @@ def system1(database):
      for i in database:
           
           for j in database:
-               if len(set.union(set(i),set(j)))<i+j:
+               if len(set.union(set(i),set(j)))<4:
                     databasedict[tsort(i)].append(tsort(j))
                     databasedict[tsort(j)].append(tsort(i))
      return databasedict
@@ -35,7 +35,7 @@ def system1(database):
 def visualize1(n=8):
      if (n<4):
           raise ValueError("graph size must be at least 4")
-     from Lgraphics import GraphWin, Circle, Line, Point, Text
+     from libraries.Lgraphics import GraphWin, Circle, Line, Point, Text
      
      w=GraphWin("Rensselaer Polytechnic Institute... simplified",n*100,n*100)
      d={0:'black',1:'blue',2:'red',3:'yellow',4:'orange',5:'pink',6:'green',7:'purple',8:'brown',9:'gray'}
@@ -123,7 +123,11 @@ def lookat((a,b),(c,d),database):
 def visualize2(n=8):
      if (n<6):
           raise ValueError("graph size must be at least 4")
-     from Lgraphics import GraphWin, Circle, Line, Point, Text
+     import os
+     import sys
+     import imp
+     Lgraphics = imp.load_source('Lgraphics','C:\\Users\\goffo\\Code\\rpigpsthingy\\providedcode\\Lgraphics.py')
+     from Lgraphics import GraphWin, Circle, Line, Point, Text # thanks to ckj for this
      
      w=GraphWin("Rensselaer Polytechnic Institute... simplified",n*100,n*100)
      d={0:'black',1:'blue',2:'red',3:'yellow',4:'orange',5:'pink',6:'green',7:'purple',8:'brown',9:'gray'}
@@ -254,6 +258,7 @@ def optimize1(s1,s2,e1,e2,restricted=[],depth=0,path=[],printe=True,d={}):
           for (a,b) in s5[(tsort((s1,s2)))]:
                if (a,b) not in restricted and (b,a) not in restricted and set((a,b))!=set((s1,s2)):
                     news.append((a,b))# where you can go...
+                    #print news
           minval=999999
           c=999999
           dprint(news)
